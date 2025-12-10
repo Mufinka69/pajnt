@@ -59,14 +59,12 @@ void app_free(App **app) {
 
 void app_events(App *a) {
     while (SDL_PollEvent(&a->event)) {
+        canvas_move(a->canvas, a->event);
+        canvas_zoom(a->canvas, a->event);        
         switch (a->event.type) {
         case SDL_EVENT_QUIT:
             a->is_running = false;
             break;        
-        case SDL_EVENT_MOUSE_WHEEL:
-            if(SDL_GetModState() & SDL_KMOD_CTRL)
-                canvas_zoom(a->canvas, a->event);
-            break;
         default:
             break;
         }
@@ -74,7 +72,7 @@ void app_events(App *a) {
 }
 
 void app_update(App *a){
-    canvas_update(a->canvas);
+    // canvas_update(a->canvas);
 }
 
 void app_draw(App *a) {

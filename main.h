@@ -10,6 +10,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <math.h>
+
+#include "vector2.h"
 
 #define SDL_FLAGS SDL_INIT_VIDEO
 

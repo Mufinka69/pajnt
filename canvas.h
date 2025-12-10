@@ -12,6 +12,8 @@ typedef struct{
     size_t y;
     float zoom;
     SDL_FRect rect;
+    bool ctrl_was_pressed;
+    Vector2 dst;
 }Canvas;
 
 bool canvas_new(Canvas **canvas, SDL_Renderer *renderer);
@@ -19,7 +21,7 @@ bool canvas_free(Canvas **canvas);
 void put_pixel(Canvas *c, int x, int y, Uint32 color);
 void canvas_draw(Canvas *c);
 void canvas_zoom(Canvas *c, SDL_Event event);
-void canvas_move(Canvas *c);
-void canvas_update(Canvas *c);
+void canvas_move(Canvas *c, SDL_Event event);
+void canvas_update(Canvas *c, SDL_Event event);
 
 #endif
