@@ -7,5 +7,6 @@
 #define WHITE 0xFFFFFFFF
 #define BLACK 0x000000FF
 #define GREY  0x808080FF
+#define LIGHT_GREY 0xc8c8c8FF
 
 #endif

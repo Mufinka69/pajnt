@@ -14,3 +14,10 @@ float vec2_distance(Vector2 a, Vector2 b) {
 Vector2 vec2_sub(Vector2 a, Vector2 b){
     return (Vector2){a.x - b.x, a.y - b.y};
 }
+
+bool check_collision_point_rect(Vector2 point, SDL_FRect rect){
+    return (point.x >= rect.x &&
+            point.x <= rect.x + rect.w &&
+            point.y >= rect.y &&
+            point.y <= rect.y + rect.h);
+}

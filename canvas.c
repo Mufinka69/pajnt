@@ -13,7 +13,7 @@ bool canvas_new(Canvas **canvas, SDL_Renderer *renderer){
     c->dst =(Vector2){0, 0};
 
     c->zoom = 1.0;
-    c->rect = (SDL_FRect){200, 200, 200, 200};
+    c->rect = (SDL_FRect){200, 200, 100, 100};
     c->renderer = renderer;
     c->surface = SDL_CreateSurface(32, 32, SDL_PIXELFORMAT_RGBA8888);
     
@@ -38,7 +38,7 @@ bool canvas_new(Canvas **canvas, SDL_Renderer *renderer){
             if((i + j)%2 == 0){
                 put_pixel(c, i, j, WHITE);
             }else{
-                put_pixel(c, i, j, GREY);
+                put_pixel(c, i, j, LIGHT_GREY);
             }
         }
     }

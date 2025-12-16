@@ -3,6 +3,7 @@
 
 #include "main.h"
 #include "canvas.h"
+#include "pencil.h"
 
 typedef struct{
         SDL_Window *window;
@@ -10,8 +11,9 @@ typedef struct{
         SDL_Event event;
         TTF_Font *font; 
         bool is_running;
-        //tools
+        //inne hujstwa
         Canvas *canvas;
+        Pencil *pencil;
 }App;
 
 bool app_new(App **app);

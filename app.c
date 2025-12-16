@@ -22,6 +22,10 @@ bool app_new(App **app) {
         return false;
     }
 
+    if(!pencil_new(&a->pencil, a->canvas)){
+        return false;
+    }
+
     a->is_running = true;
 
     return true;
@@ -31,11 +35,18 @@ void app_free(App **app) {
     if (*app) {
         App *a = *app;
 
+        if(a->pencil){
+            pencil_free(&a->pencil);
+        }
+
+        if (a->canvas){
+            canvas_free(&a->canvas);
+        }
+        
         if(a->font){
             TTF_CloseFont(a->font);
             a->font = NULL;
         }
-
         if (a->renderer) {
             SDL_DestroyRenderer(a->renderer);
             a->renderer = NULL;
@@ -72,7 +83,7 @@ void app_events(App *a) {
 }
 
 void app_update(App *a){
-    // canvas_update(a->canvas);
+    pencil_draw(a->pencil);
 }
 
 void app_draw(App *a) {
