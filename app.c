@@ -83,7 +83,12 @@ void app_events(App *a) {
 }
 
 void app_update(App *a){
-    pencil_draw(a->pencil);
+    // pencil_draw(a->pencil);
+    draw_lineH((Vector2){3, 3}, (Vector2){10, 5}, a->canvas);
+    draw_lineV((Vector2){3, 3}, (Vector2){3, 10}, a->canvas);
+    draw_line(a->pencil);
+    // pencil_draw_line(a->pencil);
+    SDL_UpdateTexture(a->pencil->canvas->texture, NULL, a->pencil->canvas->surface->pixels, a->pencil->canvas->surface->pitch);
 }
 
 void app_draw(App *a) {

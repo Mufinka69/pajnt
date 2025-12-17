@@ -1,6 +1,8 @@
 #include "canvas.h"
 #include "vector2.h"
 
+#define CANVAS_SIZE 128
+
 
 void put_pixel(Canvas *c, int x, int y, Uint32 color);
 
@@ -13,9 +15,9 @@ bool canvas_new(Canvas **canvas, SDL_Renderer *renderer){
     c->dst =(Vector2){0, 0};
 
     c->zoom = 1.0;
-    c->rect = (SDL_FRect){200, 200, 100, 100};
+    c->rect = (SDL_FRect){200, 200, CANVAS_SIZE, CANVAS_SIZE};
     c->renderer = renderer;
-    c->surface = SDL_CreateSurface(32, 32, SDL_PIXELFORMAT_RGBA8888);
+    c->surface = SDL_CreateSurface(CANVAS_SIZE, CANVAS_SIZE, SDL_PIXELFORMAT_RGBA8888);
     
     if (c->surface == NULL) {
         SDL_Log("CreateRGBSurface failed: %s", SDL_GetError());
@@ -112,14 +114,13 @@ void canvas_move(Canvas *c, SDL_Event event){
             if(mouse_flags & SDL_BUTTON_LMASK){
                 if(!c->ctrl_was_pressed){
                     c->ctrl_was_pressed = true;
-                    printf("klik\n");
+                    // printf("klik\n");
                     c->dst = vec2_sub(mouse_pos, rect_pos);                
                 }
             }
             break;
         case SDL_EVENT_MOUSE_MOTION:
             // if(czy mysz na płótnie)
-
             if(c->ctrl_was_pressed ){
                 if((mouse_flags & SDL_BUTTON_LMASK) && key_state[SDL_SCANCODE_LCTRL]){
                     c->rect.y = mouse_pos.y - c->dst.y;
@@ -130,7 +131,7 @@ void canvas_move(Canvas *c, SDL_Event event){
         case SDL_EVENT_MOUSE_BUTTON_UP:
             if(event.button.button == SDL_BUTTON_LEFT){
                 c->ctrl_was_pressed = false;
-                printf("up\n");
+                // printf("up\n");
             }
         break;
     default:
