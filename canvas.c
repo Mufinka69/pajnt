@@ -8,7 +8,7 @@ void put_pixel(Canvas *c, int x, int y, Uint32 color);
 
 
 bool canvas_new(Canvas **canvas, SDL_Renderer *renderer){
-    *canvas = calloc(1, sizeof(Canvas));
+    *canvas = (Canvas*)calloc(1, sizeof(Canvas));
     Canvas *c = *canvas;
 
     c->ctrl_was_pressed = false;
@@ -56,7 +56,9 @@ bool canvas_free(Canvas **canvas){
         c = NULL;
         *canvas = NULL;
         printf("Canvas Free!\n");
+        return true;
     }
+    return false;
 }
 
 void put_pixel(Canvas *c, int x, int y, Uint32 color){

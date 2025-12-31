@@ -1,4 +1,22 @@
-SOURCE = main.c app.c init_sdl.c canvas.c pencil.c vector2.c 
+CXXFLAGS = -std=c++17 -I src/include -I imgui -I imgui/backends
+
+LDFLAGS = -L src/lib -lSDL3 -lSDL3_ttf
+
+SRC = main.c \
+      app.c \
+      init_sdl.c \
+      canvas.c \
+      pencil.c \
+      vector2.c
+
+IMGUI = imgui/imgui.cpp \
+		imgui/imgui_draw.cpp \
+		imgui/imgui_tables.cpp \
+		imgui/imgui_widgets.cpp \
+		imgui/backends/imgui_impl_sdl.cpp \
+		imgui/backends/imgui_impl_sdlrenderer.cpp
+
+OUT = main.exe
 
 all:
-	gcc -I src/include -L src/lib -o main $(SOURCE) -lSDL3 -lSDL3_ttf
+	g++ $(SRC) $(IMGUI) $(CXXFLAGS) $(LDFLAGS) -o $(OUT)

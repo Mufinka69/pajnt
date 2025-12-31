@@ -1,4 +1,5 @@
 #include "vector2.h"
+#include <stdio.h>
 
 
 float vec2_length(Vector2 v){
@@ -20,4 +21,9 @@ bool check_collision_point_rect(Vector2 point, SDL_FRect rect){
             point.x <= rect.x + rect.w &&
             point.y >= rect.y &&
             point.y <= rect.y + rect.h);
+}
+
+bool is_mouse_button_down(int button){
+    SDL_MouseButtonFlags mouse_flags =  SDL_GetMouseState(NULL, NULL);
+    return (mouse_flags & SDL_BUTTON_MASK(button)) != 0;
 }

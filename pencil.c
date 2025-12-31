@@ -4,7 +4,7 @@
 void pencil_draw_line(Pencil *p);
 
 bool pencil_new(Pencil **pencil, Canvas *canvas){
-    *pencil = calloc(1, sizeof(Pencil));
+    *pencil = (Pencil*)calloc(1, sizeof(Pencil));
     if (*pencil == NULL) {
         fprintf(stderr, "Error Calloc of Pencil.\n");
         return false;
@@ -157,7 +157,7 @@ void draw_line(Pencil *p){
     int prev_y = ((p->previous_pos.y) - (p->canvas->rect.y))/p->canvas->zoom;
     
 
-    if (mouse_flags & SDL_BUTTON_LEFT && !key_state[SDL_SCANCODE_LCTRL]) {
+    if (is_mouse_button_down(SDL_BUTTON_LEFT) && !key_state[SDL_SCANCODE_LCTRL]) {
         if(check_collision_point_rect(mouse_pos, rect)){
             printf("H :%d, %d -> %d, %d\n", prev_x , prev_y, x, y);
             // printf("linia\n");
@@ -165,7 +165,7 @@ void draw_line(Pencil *p){
                 p->previous_pos = mouse_pos;
                 return;
             }
-            draw_line_general((Vector2){prev_x, prev_y}, (Vector2){x, y}, p->canvas);
+            draw_line_general((Vector2){(float)prev_x, (float)prev_y}, (Vector2){(float)x, (float)y}, p->canvas);
             p->previous_pos = mouse_pos;
         }
     }else{

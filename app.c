@@ -6,7 +6,7 @@ void app_update(App *g);
 void app_draw(App *g);
 
 bool app_new(App **app) {
-    *app = calloc(1, sizeof(App));
+    *app = (App*)calloc(1, sizeof(App));
     if (*app == NULL) {
         fprintf(stderr, "Error Calloc of New App.\n");
         return false;
@@ -88,6 +88,15 @@ void app_update(App *a){
     draw_lineV((Vector2){3, 3}, (Vector2){3, 10}, a->canvas);
     draw_line(a->pencil);
     // pencil_draw_line(a->pencil);
+    if(is_mouse_button_down(SDL_BUTTON_LEFT)){
+        printf("SDL_BUTTON_LEFT\n");
+    }
+
+    if(is_mouse_button_down(SDL_BUTTON_RIGHT)){
+        printf("SDL_BUTTON_RIGHT\n");
+    }
+
+
     SDL_UpdateTexture(a->pencil->canvas->texture, NULL, a->pencil->canvas->surface->pixels, a->pencil->canvas->surface->pitch);
 }
 
