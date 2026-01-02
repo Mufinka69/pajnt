@@ -5,6 +5,9 @@
 #include "canvas.h"
 #include "pencil.h"
 
+#include "gui/gui.h"
+#include "gui/menubar.h"
+
 typedef struct{
         SDL_Window *window;
         SDL_Renderer *renderer;
@@ -14,6 +17,9 @@ typedef struct{
         //inne hujstwa
         Canvas *canvas;
         Pencil *pencil;
+        //gui
+        ImGuiHandle* gui;  
+        MenuBarHandle* menu;
 }App;
 
 bool app_new(App **app);
