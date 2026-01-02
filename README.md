@@ -1,4 +1,4 @@
-# MyProject
+# skrombeda
 
 This is a minimal project using SDL3 and Dear ImGui.
 
