@@ -7,6 +7,7 @@
 
 #include "gui/gui.h"
 #include "gui/menubar.h"
+#include "gui/colorPicker.h"
 
 typedef struct{
         SDL_Window *window;
@@ -20,6 +21,7 @@ typedef struct{
         //gui
         ImGuiHandle* gui;  
         MenuBarHandle* menu;
+        ColorPickerHandle *btn;
 }App;
 
 bool app_new(App **app);

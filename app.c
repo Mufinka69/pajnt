@@ -28,6 +28,7 @@ bool app_new(App **app) {
 
     a->gui = gui_create(a->window, a->renderer);  // <-- Tworzymy GUI
     a->menu = menubar_new(a->renderer);
+    a->btn = color_picker_new(a->renderer);
 
     a->is_running = true;
 
@@ -38,6 +39,10 @@ void app_free(App **app) {
     if (*app) {
         App *a = *app;
 
+        if(a->btn){
+            color_picker_free(a->btn);
+            a->btn = NULL;
+        }
 
         if(a->menu){
             menubar_free(a->menu);
@@ -69,8 +74,6 @@ void app_free(App **app) {
             SDL_DestroyWindow(a->window);
             a->window = NULL;
         }
-
-        
 
         TTF_Quit();
         SDL_Quit();
@@ -127,18 +130,20 @@ void app_handle_menu_cmd(App *a){
 
 void app_update(App *a){
     // pencil_draw(a->pencil);
-    draw_lineH((Vector2){3, 3}, (Vector2){10, 5}, a->canvas);
-    draw_lineV((Vector2){3, 3}, (Vector2){3, 10}, a->canvas);
+    // draw_lineH((Vector2){3, 3}, (Vector2){10, 5}, a->canvas);
+    // draw_lineV((Vector2){3, 3}, (Vector2){3, 10}, a->canvas);
     draw_line(a->pencil);
     // pencil_draw_line(a->pencil);
-    if(is_mouse_button_down(SDL_BUTTON_LEFT)){
-        printf("SDL_BUTTON_LEFT\n");
-    }
+    // if(is_mouse_button_down(SDL_BUTTON_LEFT)){
+    //     printf("SDL_BUTTON_LEFT\n");
+    // }
 
-    if(is_mouse_button_down(SDL_BUTTON_RIGHT)){
-        printf("SDL_BUTTON_RIGHT\n");
-    }
+    // if(is_mouse_button_down(SDL_BUTTON_RIGHT)){
+    //     printf("SDL_BUTTON_RIGHT\n");
+    // }
     app_handle_menu_cmd(a);
+    // a->pencil->color = color_picker_get_color(a->btn);
+    // printf("Kolor: 0x%08X\n", a->pencil->color);
 
     SDL_UpdateTexture(a->pencil->canvas->texture, NULL, a->pencil->canvas->surface->pixels, a->pencil->canvas->surface->pitch);
 }
@@ -149,6 +154,7 @@ void app_draw(App *a) {
     gui_new_frame(a->gui); 
 
     menubar_draw(a->menu);
+    color_picker_draw(a->btn);
     gui_render(a->gui);    
 
     SDL_RenderPresent(a->renderer);

@@ -16,7 +16,8 @@ IMGUI = imgui/imgui.cpp \
 	  imgui/backends/imgui_impl_sdl3.cpp \
         imgui/backends/imgui_impl_sdlrenderer3.cpp \
         gui/gui.cpp \
-        gui/menubar.cpp
+        gui/menubar.cpp \
+        gui/colorPicker.cpp
 
 
 OUT = main.exe

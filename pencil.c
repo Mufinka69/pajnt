@@ -12,7 +12,7 @@ bool pencil_new(Pencil **pencil, Canvas *canvas){
     Pencil *p = *pencil;
 
     p->canvas = canvas;
-    p->color = RED;
+    p->color = GREEN;
     p->size = 10;
     p->tooltype = PEN;
     p->is_drawing = false;
@@ -118,7 +118,7 @@ void draw_lineV(Vector2 a, Vector2 b, Canvas *c)
 }
 
 
-void draw_line_general(Vector2 a, Vector2 b, Canvas *c) {
+void draw_line_general(Vector2 a, Vector2 b, Canvas *c, Uint32 color) {
     int dx = abs(b.x - a.x);
     int sx = (a.x < b.x) ? 1 : -1;
 
@@ -129,7 +129,7 @@ void draw_line_general(Vector2 a, Vector2 b, Canvas *c) {
     int e2;
 
     while (true) {
-        put_pixel(c, a.x, a.y, RED);
+        put_pixel(c, a.x, a.y, color);
         if (a.x == b.x && a.y == b.y) break;
         e2 = 2 * err;
         if (e2 >= dy){ err += dy; a.x += sx;}
@@ -159,13 +159,13 @@ void draw_line(Pencil *p){
 
     if (is_mouse_button_down(SDL_BUTTON_LEFT) && !key_state[SDL_SCANCODE_LCTRL]) {
         if(check_collision_point_rect(mouse_pos, rect)){
-            printf("H :%d, %d -> %d, %d\n", prev_x , prev_y, x, y);
+            // printf("H :%d, %d -> %d, %d\n", prev_x , prev_y, x, y);
             // printf("linia\n");
             if(p->previous_pos.x == -1){
                 p->previous_pos = mouse_pos;
                 return;
             }
-            draw_line_general((Vector2){(float)prev_x, (float)prev_y}, (Vector2){(float)x, (float)y}, p->canvas);
+            draw_line_general((Vector2){(float)prev_x, (float)prev_y}, (Vector2){(float)x, (float)y}, p->canvas, p->color);
             p->previous_pos = mouse_pos;
         }
     }else{
