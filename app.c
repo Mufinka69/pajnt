@@ -118,7 +118,8 @@ void app_handle_menu_cmd(App *a){
             /* wczytaj obraz */
             break;
         case MENU_SAVE:
-            /* zapisz obraz */
+            save_file(a->canvas);
+            printf("xdd\n");
             break;
         case MENU_EXIT:
             a->is_running = false;
@@ -142,7 +143,7 @@ void app_update(App *a){
     //     printf("SDL_BUTTON_RIGHT\n");
     // }
     app_handle_menu_cmd(a);
-    // a->pencil->color = color_picker_get_color(a->btn);
+    a->pencil->color = color_picker_get_color(a->btn);
     // printf("Kolor: 0x%08X\n", a->pencil->color);
 
     SDL_UpdateTexture(a->pencil->canvas->texture, NULL, a->pencil->canvas->surface->pixels, a->pencil->canvas->surface->pitch);

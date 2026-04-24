@@ -48,7 +48,7 @@ void pencil_draw(Pencil *p){
 
     if (mouse_flags & SDL_BUTTON_LEFT && !key_state[SDL_SCANCODE_LCTRL]) {
         if(check_collision_point_rect(mouse_pos, rect)){
-            put_pixel(p->canvas, x, y, RED);
+            put_pixel(p->canvas, x, y, p->color);
             printf("rysuje\n");
         }
     }

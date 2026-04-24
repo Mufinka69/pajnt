@@ -4,6 +4,7 @@
 #include "main.h"
 #include "canvas.h"
 #include "pencil.h"
+#include "menu.h"
 
 #include "gui/gui.h"
 #include "gui/menubar.h"

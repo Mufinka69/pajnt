@@ -6,6 +6,9 @@ bool app_init_sdl(App *a) {
         return false;
     }
 
+    // SDL_SetRenderDrawBlendMode(a->renderer, SDL_BLENDMODE_BLEND);
+
+
     if (!TTF_Init()) {
         fprintf(stderr, "Error initializing SDL3_ttf: %s\n", SDL_GetError());
         return false;

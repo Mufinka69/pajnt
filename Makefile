@@ -7,6 +7,7 @@ SRC = main.c \
       init_sdl.c \
       canvas.c \
       pencil.c \
+      menu.c \
       vector2.c
 
 IMGUI = imgui/imgui.cpp \

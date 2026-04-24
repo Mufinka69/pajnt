@@ -15,19 +15,30 @@ struct ColorPicker{
         for (int i = 0; i < 6; i++){
             char string[3];
             sprintf(string, "%d", i);
-            if(ImGui::ColorButton(string, palette[i])){
+            ImGui::ColorButton(string, palette[i]);
+            if(ImGui::IsItemClicked()){
                 color[0] = palette[i].x;
                 color[1] = palette[i].y;
                 color[2] = palette[i].z;
                 color[3] = palette[i].w;
-                ImGui::OpenPopup("Picker");
+                selected_color = 
+                    ((Uint32)(color[3]*255) << 24) |
+                    ((Uint32)(color[0]*255) << 16) |
+                    ((Uint32)(color[1]*255) << 8)  |
+                    ((Uint32)(color[2]*255));
                 palette_index = i;
                 ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_Once);
             }
             if(i%2 == 0){
                 ImGui::SameLine();
             }
+            if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0)){
+                ImGui::OpenPopup("Picker");  
+                ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_Once);          
+            }
         }
+
+
         if(ImGui::BeginPopup("Picker")){
             ImGui::ColorPicker4("##picker", color);
             ImGui::EndPopup();
@@ -35,6 +46,11 @@ struct ColorPicker{
             palette[palette_index].y = color[1];
             palette[palette_index].z = color[2];
             palette[palette_index].w = color[3];
+            selected_color = 
+                ((Uint32)(color[3] * 255) << 24) |
+                ((Uint32)(color[0] * 255) << 16) |
+                ((Uint32)(color[1] * 255) << 8)  |
+                ((Uint32)(color[2] * 255));
         }
     }
 

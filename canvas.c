@@ -62,8 +62,10 @@ bool canvas_free(Canvas **canvas){
 }
 
 void put_pixel(Canvas *c, int x, int y, Uint32 color){
+    SDL_LockSurface(c->surface);
     Uint8* p = (Uint8*)c->surface->pixels + y * c->surface->pitch + x * 4; 
     *(Uint32*)p = color;
+    SDL_UnlockSurface(c->surface);
 }
 
 void canvas_zoom(Canvas *c, SDL_Event event){
