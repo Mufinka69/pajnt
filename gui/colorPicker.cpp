@@ -1,4 +1,5 @@
 #include "colorPicker.h"
+#include <stdio.h>
 
 struct ColorPicker{
     SDL_Renderer *renderer;
@@ -7,10 +8,23 @@ struct ColorPicker{
     ImVec4 palette[6] = {{0, 0, 0, 1}, {0, 0, 1, 1},{0, 1, 1, 1},{1, 1, 1, 1}, {1, 0, 1, 1}, {1, 1, 0, 1}};
     int palette_index = 0;
 
-    void draw(){
+    bool draw(){
         int w = 100, h = 200;
         float topOffset = ImGui::GetFrameHeight();
         ImGui::SetNextWindowPos(ImVec2(WINDOW_WIDTH - w, topOffset), ImGuiCond_Once);
+
+        int block_surface = false;
+
+        if(ImGui::IsWindowHovered() ||
+            ImGui::IsWindowFocused() ||
+            ImGui::IsAnyItemActive()){
+                
+            block_surface = true;    
+        }else{
+            block_surface = false;
+        }
+
+
 
         for (int i = 0; i < 6; i++){
             char string[3];
@@ -41,6 +55,18 @@ struct ColorPicker{
 
         if(ImGui::BeginPopup("Picker")){
             ImGui::ColorPicker4("##picker", color);
+            
+            if(ImGui::IsWindowHovered() ||
+               ImGui::IsWindowFocused() ||
+               ImGui::IsAnyItemActive()){
+                block_surface = true;
+                
+            }else{
+                block_surface = false;
+            }
+
+
+
             ImGui::EndPopup();
             palette[palette_index].x = color[0];
             palette[palette_index].y = color[1];
@@ -52,6 +78,7 @@ struct ColorPicker{
                 ((Uint32)(color[1] * 255) << 8)  |
                 ((Uint32)(color[2] * 255));
         }
+        return block_surface;
     }
 
     Uint32 get_color(){
@@ -66,8 +93,8 @@ extern "C"{
         return reinterpret_cast<ColorPickerHandle*>(new ColorPicker{renderer});
     }
 
-    void color_picker_draw(ColorPickerHandle* picker){
-        reinterpret_cast<ColorPicker*>(picker)->draw();
+    bool color_picker_draw(ColorPickerHandle* picker){
+        return reinterpret_cast<ColorPicker*>(picker)->draw();
     }
 
     Uint32 color_picker_get_color(ColorPickerHandle *picker){

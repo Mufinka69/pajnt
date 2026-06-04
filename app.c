@@ -130,32 +130,27 @@ void app_handle_menu_cmd(App *a){
 }
 
 void app_update(App *a){
-    // pencil_draw(a->pencil);
-    // draw_lineH((Vector2){3, 3}, (Vector2){10, 5}, a->canvas);
-    // draw_lineV((Vector2){3, 3}, (Vector2){3, 10}, a->canvas);
-    draw_line(a->pencil);
-    // pencil_draw_line(a->pencil);
-    // if(is_mouse_button_down(SDL_BUTTON_LEFT)){
-    //     printf("SDL_BUTTON_LEFT\n");
-    // }
 
-    // if(is_mouse_button_down(SDL_BUTTON_RIGHT)){
-    //     printf("SDL_BUTTON_RIGHT\n");
-    // }
+    draw_line(a->pencil);       // hj wi po co to tu bylo, jz wiem xdf
     app_handle_menu_cmd(a);
-    a->pencil->color = color_picker_get_color(a->btn);
-    // printf("Kolor: 0x%08X\n", a->pencil->color);
 
+    a->pencil->color = color_picker_get_color(a->btn);
+    
     SDL_UpdateTexture(a->pencil->canvas->texture, NULL, a->pencil->canvas->surface->pixels, a->pencil->canvas->surface->pitch);
 }
 
 void app_draw(App *a) {
     SDL_RenderClear(a->renderer);
-    canvas_draw(a->canvas); 
     gui_new_frame(a->gui); 
-
+    
     menubar_draw(a->menu);
-    color_picker_draw(a->btn);
+    canvas_draw(a->canvas); 
+    if(!color_picker_draw(a->btn)){
+        a->pencil->block_pencil = false;
+    }else{
+        a->pencil->block_pencil = true;
+    }
+
     gui_render(a->gui);    
 
     SDL_RenderPresent(a->renderer);
@@ -165,7 +160,6 @@ void app_run(App *a) {
     while (a->is_running){
         app_events(a);
         app_update(a);
-
         app_draw(a);
     }
 }

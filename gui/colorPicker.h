@@ -17,7 +17,7 @@ typedef void ColorPickerHandle;
 
 
 ColorPickerHandle* color_picker_new(SDL_Renderer* renderer);
-void color_picker_draw(ColorPickerHandle *picker);
+bool color_picker_draw(ColorPickerHandle *picker);
 void color_picker_free(ColorPickerHandle *picker);
 Uint32 color_picker_get_color(ColorPickerHandle *picker);
 

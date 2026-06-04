@@ -20,8 +20,11 @@ IMGUI = imgui/imgui.cpp \
         gui/menubar.cpp \
         gui/colorPicker.cpp
 
-
-OUT = main.exe
+ifeq ($(OS), Windows_NT)
+	OUT = main.exe
+else
+	OUT = main
+endif
 
 all:
 	g++ $(SRC) $(IMGUI) $(CXXFLAGS) $(LDFLAGS) -o $(OUT)

@@ -24,4 +24,7 @@ void canvas_zoom(Canvas *c, SDL_Event event);
 void canvas_move(Canvas *c, SDL_Event event);
 void canvas_update(Canvas *c, SDL_Event event);
 
+void canvas_lock(Canvas *c);
+void canvas_unlock(Canvas *c);
+
 #endif

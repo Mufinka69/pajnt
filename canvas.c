@@ -18,7 +18,7 @@ bool canvas_new(Canvas **canvas, SDL_Renderer *renderer){
     c->rect = (SDL_FRect){200, 200, CANVAS_SIZE, CANVAS_SIZE};
     c->renderer = renderer;
     c->surface = SDL_CreateSurface(CANVAS_SIZE, CANVAS_SIZE, SDL_PIXELFORMAT_RGBA8888);
-    
+        
     if (c->surface == NULL) {
         SDL_Log("CreateRGBSurface failed: %s", SDL_GetError());
         // exit(1);

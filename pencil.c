@@ -10,13 +10,14 @@ bool pencil_new(Pencil **pencil, Canvas *canvas){
         return false;
     }
     Pencil *p = *pencil;
-
+    
     p->canvas = canvas;
     p->color = GREEN;
     p->size = 10;
     p->tooltype = PEN;
     p->is_drawing = false;
     p->previous_pos = (Vector2){-1, -1};
+    p->block_pencil = false;
     return true;
 }
 
@@ -140,6 +141,9 @@ void draw_line_general(Vector2 a, Vector2 b, Canvas *c, Uint32 color) {
 
 
 void draw_line(Pencil *p){
+    if(p->block_pencil){
+        return;
+    }
     Vector2 mouse_pos;
     const bool* key_state = SDL_GetKeyboardState(NULL);
     SDL_MouseButtonFlags mouse_flags =  SDL_GetMouseState(&mouse_pos.x, &mouse_pos.y);

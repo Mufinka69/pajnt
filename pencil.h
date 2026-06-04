@@ -15,6 +15,7 @@ typedef struct{
     Uint32 color;
     bool is_drawing;
     Vector2 previous_pos;
+    bool block_pencil;
 }Pencil;
 
 
